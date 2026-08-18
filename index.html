@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>PharmaGalaxy Quiz Sheet</title>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f5f9;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 650px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+h1 {
+    color: #17365d;
+}
+
+h2 {
+    color: #1769aa;
+}
+
+input, select {
+    width: 90%;
+    padding: 13px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    width: 90%;
+    padding: 14px;
+    margin: 10px auto;
+    display: block;
+    border: none;
+    border-radius: 8px;
+    background: #1769aa;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0d4f82;
+}
+
+.option {
+    background: #eeeeee;
+    color: #222;
+}
+
+.option:hover {
+    background: #d9eaf7;
+}
+
+#question {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 25px 0;
+}
+
+.result {
+    font-size: 20px;
+    margin: 15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- WELCOME PAGE -->
+
+<div id="welcome">
+
+<h1>Welcome to PharmaGalaxy</h1>
+
+<p>PharmaGalaxy Quiz Sheet</p>
+
+<button onclick="showLogin()">
+Start Quiz
+</button>
+
+</div>
+
+
+<!-- STUDENT INFORMATION -->
+
+<div id="login" style="display:none;">
+
+<h2>Student Information</h2>
+
+<input
+type="text"
+id="username"
+placeholder="Enter Username / Student ID">
+
+<select id="professional">
+
+<option value="">
+Select Professional
+</option>
+
+<option>1st Professional</option>
+<option>2nd Professional</option>
+<option>3rd Professional</option>
+<option>4th Professional</option>
+<option>5th Professional</option>
+
+</select>
+
+<button onclick="startQuiz()">
+Start Quiz
+</button>
+
+</div>
+
+
+<!-- QUIZ -->
+
+<div id="quiz" style="display:none;">
+
+<h2 id="questionNumber"></h2>
+
+<p id="question"></p>
+
+<div id="options"></div>
+
+</div>
+
+
+<!-- RESULT -->
+
+<div id="result" style="display:none;">
+
+<h1>Quiz Completed</h1>
+
+<p class="result" id="score"></p>
+
+<p class="result" id="correct"></p>
+
+<p class="result" id="wrong"></p>
+
+<p class="result" id="percentage"></p>
+
+<button onclick="location.reload()">
+Take Quiz Again
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+const questions = [
+
+{
+question:
+"A patient develops sweating, tremors and confusion after insulin administration. What is the most likely complication?",
+
+options: [
+"Hypoglycemia",
+"Hyperglycemia",
+"Hypertension",
+"Hypercalcemia"
+],
+
+answer: "Hypoglycemia"
+},
+
+
+{
+question:
+"Which organ is primarily responsible for insulin production?",
+
+options: [
+"Liver",
+"Pancreas",
+"Kidney",
+"Spleen"
+],
+
+answer: "Pancreas"
+},
+
+
+{
+question:
+"Which drug is used as an antidote for paracetamol overdose?",
+
+options: [
+"Naloxone",
+"Atropine",
+"N-acetylcysteine",
+"Flumazenil"
+],
+
+answer: "N-acetylcysteine"
+}
+
+];
+
+
+let currentQuestion = 0;
+
+let score = 0;
+
+let correct = 0;
+
+let wrong = 0;
+
+
+function showLogin() {
+
+document.getElementById("welcome").style.display = "none";
+
+document.getElementById("login").style.display = "block";
+
+}
+
+
+function startQuiz() {
+
+let username =
+document.getElementById("username").value;
+
+if(username.trim() === "") {
+
+alert("Please enter Username / Student ID");
+
+return;
+
+}
+
+document.getElementById("login").style.display = "none";
+
+document.getElementById("quiz").style.display = "block";
+
+showQuestion();
+
+}
+
+
+function showQuestion() {
+
+let q = questions[currentQuestion];
+
+document.getElementById("questionNumber").innerText =
+"Question " + (currentQuestion + 1)
++ " of " + questions.length;
+
+document.getElementById("question").innerText =
+q.question;
+
+let options =
+document.getElementById("options");
+
+options.innerHTML = "";
+
+
+q.options.forEach(function(option) {
+
+let button =
+document.createElement("button");
+
+button.innerText = option;
+
+button.className = "option";
+
+button.onclick = function() {
+
+checkAnswer(option);
+
+};
+
+options.appendChild(button);
+
+});
+
+}
+
+
+function checkAnswer(selected) {
+
+let correctAnswer =
+questions[currentQuestion].answer;
+
+
+if(selected === correctAnswer) {
+
+score++;
+
+correct++;
+
+}
+
+else {
+
+wrong++;
+
+}
+
+
+currentQuestion++;
+
+
+if(currentQuestion < questions.length) {
+
+showQuestion();
+
+}
+
+else {
+
+showResult();
+
+}
+
+}
+
+
+function showResult() {
+
+document.getElementById("quiz").style.display = "none";
+
+document.getElementById("result").style.display = "block";
+
+
+let percentage =
+(score / questions.length) * 100;
+
+
+document.getElementById("score").innerText =
+"Score: " + score + " / " + questions.length;
+
+
+document.getElementById("correct").innerText =
+"Correct Answers: " + correct;
+
+
+document.getElementById("wrong").innerText =
+"Wrong Answers: " + wrong;
+
+
+document.getElementById("percentage").innerText =
+"Percentage: " + percentage.toFixed(2) + "%";
+
+}
+
+</script>
+
+</body>
+</html>
