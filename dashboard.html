@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PharmaGalaxy Quiz Sheet</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: 30px auto;
+    }
+
+    .student-card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    }
+
+    .subjects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .subject {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    }
+
+    .subject:hover {
+      transform: translateY(-3px);
+    }
+
+    .logout {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>PHARMAGALAXY</h1>
+  <p>QUIZ SHEET</p>
+</header>
+
+<div class="container">
+
+  <div class="student-card">
+    <h2>Welcome, Student 👋</h2>
+
+    <p>Student ID: <span id="studentId">Loading...</span></p>
+    <p>Name: <span id="studentName">Loading...</span></p>
+    <p>Profession: <span id="profession">Loading...</span></p>
+    <p>Year: <span id="year">Loading...</span></p>
+
+    <button class="logout" onclick="logout()">Logout</button>
+  </div>
+
+  <h2>Select Subject</h2>
+
+  <div class="subjects">
+
+    <div class="subject">
+      <h3>Pharmacology</h3>
+    </div>
+
+    <div class="subject">
+      <h3>Pharmaceutics</h3>
+    </div>
+
+    <div class="subject">
+      <h3>Pharmaceutical Chemistry</h3>
+    </div>
+
+    <div class="subject">
+      <h3>Pharmacognosy</h3>
+    </div>
+
+    <div class="subject">
+      <h3>Clinical Pharmacy</h3>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
