@@ -97,7 +97,7 @@ button:hover {
 Start Quiz
 </button>
 
-</div>
+
 
 
 <!-- STUDENT INFORMATION -->
@@ -106,33 +106,28 @@ Start Quiz
 
 <h2>Student Information</h2>
 
+<div id="login" style="display:none;">
+
+<h2>Student Login</h2>
+
 <input
-type="text"
-id="username"
-placeholder="Enter Username / Student ID">
+type="email"
+id="email"
+placeholder="Student Email">
 
-<select id="professional">
-
-<option value="">
-Select Professional
-</option>
-
-<option>1st Professional</option>
-<option>2nd Professional</option>
-<option>3rd Professional</option>
-<option>4th Professional</option>
-<option>5th Professional</option>
-</select> 
-<input type="email" id="email" placeholder="Student Email">
-<input type="password" id="password" placeholder="Password"> 
+<input
+type="password"
+id="password"
+placeholder="Password">
 
 <button onclick="login()">
-login
+LOGIN
 </button>
 
+<p id="message"></p>
+
 </div>
-
-
+    
 <!-- QUIZ -->
 
 <div id="quiz" style="display:none;">
