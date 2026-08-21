@@ -31,4 +31,6 @@ async function login() {
   window.location.href = "dashboard.html";
 }
 
-
+async function login() {
+  alert("LOGIN BUTTON WORKING");
+}
