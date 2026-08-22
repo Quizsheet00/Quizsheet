@@ -34,3 +34,8 @@ async function login() {
 async function login() {
   alert("LOGIN BUTTON WORKING");
 }
+
+function showLogin() {
+    document.getElementById("welcome").style.display = "none";
+    document.getElementById("login").style.display = "block";
+}
