@@ -1,4 +1,4 @@
-const SUPABASE_URL = https://hjdadrztyuysxntmxolh.supabase.co;
+const SUPABASE_URL = "https://hjdadrztyuysxntmxolh.supabase.co";
 const SUPABASE_KEY = sb_publishable_bf6orgWbQgwjycYWgLmvUg_Z8s6mGV3
 
 const supabaseClient = supabase.createClient(
@@ -7,7 +7,7 @@ const supabaseClient = supabase.createClient(
 );
 async function login() {
 
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
   if (email === "" || password === "") {
@@ -29,10 +29,6 @@ async function login() {
   alert("Login successful!");
 
   window.location.href = "dashboard.html";
-}
-
-async function login() {
-  alert("LOGIN BUTTON WORKING");
 }
 
 function showLogin() {
