@@ -35,3 +35,19 @@ function showLogin() {
     document.getElementById("welcome").style.display = "none";
     document.getElementById("login").style.display = "block";
 }
+async function loadStudentData() {
+
+  const { data: { user } } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  document.getElementById("studentName").innerText =
+    user.user_metadata?.name || "Student";
+
+  document.getElementById("studentId").innerText =
+    user.user_metadata?.student_id || "Not Available";
+
+}
