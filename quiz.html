@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PharmaGalaxy Quiz</title>
+
+<style>
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+}
+
+.container {
+    width: 90%;
+    max-width: 700px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+    color: #17365d;
+}
+
+#question {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 25px 0;
+}
+
+.option {
+    width: 100%;
+    padding: 15px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 8px;
+    background: #eeeeee;
+    color: #222;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.option:hover {
+    background: #d9eaf7;
+}
+
+#nextButton {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    background: #1769aa;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+#result {
+    display: none;
+    text-align: center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>PHARMAGALAXY</h1>
+
+<h2 id="subject"></h2>
+
+<h3 id="chapter"></h3>
+
+<p id="questionNumber"></p>
+
+<p id="question"></p>
+
+<div id="options"></div>
+
+<button id="nextButton" onclick="nextQuestion()">
+Next
+</button>
+
+<div id="result">
+
+<h2>Quiz Completed 🎉</h2>
+
+<p id="score"></p>
+
+<p id="percentage"></p>
+
+<button onclick="window.location.href='dashboard.html'">
+Back to Dashboard
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+const subject =
+localStorage.getItem("selectedSubject");
+
+const chapter =
+localStorage.getItem("selectedChapter");
+
+
+document.getElementById("subject").innerText =
+"Subject: " + (subject || "Unknown");
+
+document.getElementById("chapter").innerText =
+"Chapter: " + (chapter || "Unknown");
+
+
+const questions = [
+
+{
+question: "A patient develops sweating, tremors and confusion after insulin administration. What is the most likely complication?",
+
+options: [
+"Hypoglycemia",
+"Hyperglycemia",
+"Hypertension",
+"Hypercalcemia"
+],
+
+answer: "Hypoglycemia"
+
+},
+
+{
+question: "Which organ is primarily responsible for insulin production?",
+
+options: [
+"Liver",
+"Pancreas",
+"Kidney",
+"Spleen"
+],
+
+answer: "Pancreas"
+
+},
+
+{
+question: "Which drug is used as an antidote for paracetamol overdose?",
+
+options: [
+"Naloxone",
+"Atropine",
+"N-acetylcysteine",
+"Flumazenil"
+],
+
+answer: "N-acetylcysteine"
+
+}
+
+];
+
+
+let currentQuestion = 0;
+
+let score = 0;
+
+let selectedAnswer = null;
+
+
+function showQuestion() {
+
+const q = questions[currentQuestion];
+
+document.getElementById("questionNumber").innerText =
+"Question " + (currentQuestion + 1) +
+" of " + questions.length;
+
+document.getElementById("question").innerText =
+q.question;
+
+const options =
+document.getElementById("options");
+
+options.innerHTML = "";
+
+selectedAnswer = null;
+
+q.options.forEach(function(option) {
+
+const button =
+document.createElement("button");
+
+button.innerText = option;
+
+button.className = "option";
+
+button.onclick = function() {
+
+selectedAnswer = option;
+
+};
+
+options.appendChild(button);
+
+});
+
+}
+
+
+function nextQuestion() {
+
+if (selectedAnswer === null) {
+
+alert("Please select an answer");
+
+return;
+
+}
+
+if (selectedAnswer === questions[currentQuestion].answer) {
+
+score++;
+
+}
+
+currentQuestion++;
+
+if (currentQuestion < questions.length) {
+
+showQuestion();
+
+}
+
+else {
+
+showResult();
+
+}
+
+}
+
+
+function showResult() {
+
+document.getElementById("question").style.display = "none";
+
+document.getElementById("questionNumber").style.display = "none";
+
+document.getElementById("options").style.display = "none";
+
+document.getElementById("nextButton").style.display = "none";
+
+document.getElementById("result").style.display = "block";
+
+const percentage =
+(score / questions.length) * 100;
+
+document.getElementById("score").innerText =
+"Score: " + score + " / " + questions.length;
+
+document.getElementById("percentage").innerText =
+"Percentage: " + percentage.toFixed(2) + "%";
+
+}
+
+
+showQuestion();
+
+</script>
+
+</body>
+
+</html>
