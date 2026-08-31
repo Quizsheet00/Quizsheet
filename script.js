@@ -56,3 +56,9 @@ window.addEventListener("DOMContentLoaded", function () {
     loadStudentData();
   }
 });
+async function logout() {
+
+  await supabaseClient.auth.signOut();
+
+  window.location.href = "index.html";
+}
