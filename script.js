@@ -62,3 +62,7 @@ async function logout() {
 
   window.location.href = "index.html";
 }
+function openSubject(subject) {
+  localStorage.setItem("selectedSubject", subject);
+  window.location.href = "chapters.html";
+}
