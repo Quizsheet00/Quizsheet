@@ -51,3 +51,8 @@ async function loadStudentData() {
     user.user_metadata?.student_id || "Not Available";
 
 }
+window.addEventListener("DOMContentLoaded", function () {
+  if (document.getElementById("studentName")) {
+    loadStudentData();
+  }
+});
