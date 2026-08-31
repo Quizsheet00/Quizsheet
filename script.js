@@ -66,3 +66,9 @@ function openSubject(subject) {
   localStorage.setItem("selectedSubject", subject);
   window.location.href = "chapters.html";
 }
+function openSubject(subject) {
+
+  localStorage.setItem("selectedSubject", subject);
+
+  window.location.href = "chapters.html";
+}
