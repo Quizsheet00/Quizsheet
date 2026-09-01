@@ -98,3 +98,26 @@ async function logout() {
 if (window.location.pathname.includes("dashboard.html")) {
   loadStudentData();
 }
+function openSubject(subject) {
+
+  if (subject === "Pharmacology") {
+    window.location.href = "chapters.html?subject=Pharmacology";
+  }
+
+  if (subject === "Pharmaceutics") {
+    window.location.href = "chapters.html?subject=Pharmaceutics";
+  }
+
+  if (subject === "Pharmaceutical Chemistry") {
+    window.location.href = "chapters.html?subject=Pharmaceutical%20Chemistry";
+  }
+
+  if (subject === "Pharmacognosy") {
+    window.location.href = "chapters.html?subject=Pharmacognosy";
+  }
+
+  if (subject === "Clinical Pharmacy") {
+    window.location.href = "chapters.html?subject=Clinical%20Pharmacy";
+  }
+
+}
