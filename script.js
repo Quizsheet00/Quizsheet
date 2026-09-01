@@ -28,7 +28,7 @@ async function login() {
 
   alert("Login successful!");
 
-  window.location.href = "dashboard.html";
+  window.location.href = "profile.html";
 }
 
 function showLogin() {
