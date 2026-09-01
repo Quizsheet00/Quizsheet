@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Profile - PharmaGalaxy</title>
+
+<style>
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #17365d;
+}
+
+h2 {
+    text-align: center;
+    color: #1769aa;
+}
+
+input,
+select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #1769aa;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>PHARMAGALAXY</h1>
+
+<h2>Student Profile</h2>
+
+<input
+type="text"
+id="studentId"
+placeholder="Enter Student ID">
+
+<input
+type="text"
+id="name"
+placeholder="Enter Your Name">
+
+<select id="profession">
+
+<option value="">
+Select Professional
+</option>
+
+<option>1st Professional</option>
+<option>2nd Professional</option>
+<option>3rd Professional</option>
+<option>4th Professional</option>
+<option>5th Professional</option>
+
+</select>
+
+<select id="year">
+
+<option value="">
+Select Year
+</option>
+
+<option>1st Year</option>
+<option>2nd Year</option>
+<option>3rd Year</option>
+<option>4th Year</option>
+<option>5th Year</option>
+
+</select>
+
+<button onclick="saveProfile()">
+Save & Continue
+</button>
+
+</div>
+
+<script>
+
+function saveProfile() {
+
+const studentId =
+document.getElementById("studentId").value;
+
+const name =
+document.getElementById("name").value;
+
+const profession =
+document.getElementById("profession").value;
+
+const year =
+document.getElementById("year").value;
+
+if (
+studentId === "" ||
+name === "" ||
+profession === "" ||
+year === ""
+) {
+
+alert("Please complete your profile");
+
+return;
+
+}
+
+localStorage.setItem("studentId", studentId);
+localStorage.setItem("studentName", name);
+localStorage.setItem("profession", profession);
+localStorage.setItem("year", year);
+
+window.location.href = "dashboard.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
