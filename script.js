@@ -5,9 +5,13 @@ const supabaseClient = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
+
+
+// ================= LOGIN =================
+
 async function login() {
 
-  const email = document.getElementById("username").value;
+  const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
   if (email === "" || password === "") {
@@ -26,49 +30,71 @@ async function login() {
     return;
   }
 
-  alert("Login successful!");
-
-  window.location.href = "profile.html";
+  window.location.href = "dashboard.html";
 }
+
+
+// ================= SHOW LOGIN =================
 
 function showLogin() {
-    document.getElementById("welcome").style.display = "none";
-    document.getElementById("login").style.display = "block";
+
+  document.getElementById("welcome").style.display = "none";
+
+  document.getElementById("login").style.display = "block";
 }
+
+
+// ================= DASHBOARD =================
+
 async function loadStudentData() {
 
-  const { data: { user } } = await supabaseClient.auth.getUser();
+  const { data: { user } } =
+    await supabaseClient.auth.getUser();
 
   if (!user) {
     window.location.href = "index.html";
     return;
   }
 
+  const { data, error } =
+    await supabaseClient
+      .from("students")
+      .select("*")
+      .eq("user_id", user.id)
+      .single();
+
+  if (error) {
+    console.log(error);
+    alert("Student data not found");
+    return;
+  }
+
   document.getElementById("studentName").innerText =
-    user.user_metadata?.name || "Student";
+    data.name || "Not available";
+
+  document.getElementById("profession").innerText =
+    data.profession || "Not available";
+
+  document.getElementById("year").innerText =
+    data.year || "Not available";
 
   document.getElementById("studentId").innerText =
-    user.user_metadata?.student_id || "Not Available";
-
+    data.student_id || data["student id"] || "Not available";
 }
-window.addEventListener("DOMContentLoaded", function () {
-  if (document.getElementById("studentName")) {
-    loadStudentData();
-  }
-});
+
+
+// ================= LOGOUT =================
+
 async function logout() {
 
   await supabaseClient.auth.signOut();
 
   window.location.href = "index.html";
 }
-function openSubject(subject) {
-  localStorage.setItem("selectedSubject", subject);
-  window.location.href = "chapters.html";
-}
-function openSubject(subject) {
 
-  localStorage.setItem("selectedSubject", subject);
 
-  window.location.href = "chapters.html";
+// ================= RUN DASHBOARD =================
+
+if (window.location.pathname.includes("dashboard.html")) {
+  loadStudentData();
 }
