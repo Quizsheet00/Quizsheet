@@ -116,39 +116,103 @@ Save & Continue
 
 <script>
 
-function saveProfile() {
+<script>
 
-const studentId =
-document.getElementById("studentId").value;
+const SUPABASE_URL =
+"https://hjdadrztyuysxntmxolh.supabase.co";
 
-const name =
-document.getElementById("name").value;
+const SUPABASE_KEY =
+"sb_publishable_bf6orgWbQgwjycYWgLmvUg_Z8s6mGV3";
 
-const profession =
-document.getElementById("profession").value;
+const supabaseClient =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
-const year =
-document.getElementById("year").value;
 
-if (
-studentId === "" ||
-name === "" ||
-profession === "" ||
-year === ""
-) {
+async function saveProfile() {
 
-alert("Please complete your profile");
+  const studentId =
+    document.getElementById("studentId").value.trim();
 
-return;
+  const name =
+    document.getElementById("name").value.trim();
 
-}
+  const profession =
+    document.getElementById("profession").value;
 
-localStorage.setItem("studentId", studentId);
-localStorage.setItem("studentName", name);
-localStorage.setItem("profession", profession);
-localStorage.setItem("year", year);
+  const year =
+    document.getElementById("year").value;
 
-window.location.href = "dashboard.html";
+
+  if (
+    studentId === "" ||
+    name === "" ||
+    profession === "" ||
+    year === ""
+  ) {
+
+    alert("Please complete your profile");
+
+    return;
+  }
+
+
+  const {
+    data: { user }
+  } =
+  await supabaseClient.auth.getUser();
+
+
+  if (!user) {
+
+    alert("Please login first");
+
+    window.location.href = "index.html";
+
+    return;
+  }
+
+
+  const { error } =
+    await supabaseClient
+      .from("students")
+      .upsert({
+
+        student_id: studentId,
+
+        name: name,
+
+        profession: profession,
+
+        email: user.email,
+
+        year: year,
+
+        user_id: user.id
+
+      }, {
+
+        onConflict: "user_id"
+
+      });
+
+
+  if (error) {
+
+    console.log(error);
+
+    alert("Profile could not be saved");
+
+    return;
+  }
+
+
+  alert("Profile saved successfully!");
+
+  window.location.href =
+    "dashboard.html";
 
 }
 
